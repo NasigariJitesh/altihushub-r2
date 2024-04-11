@@ -43,16 +43,17 @@ const updateItem = (id: string, item: Invoice, invoices: Invoice[]) => {
 };
 
 const deleteItem = (id: string, invoices: Invoice[]) => {
-	const index = invoices.findIndex((invoice) => invoice.id === id);
-	if (index === -1) throw new Error("Invalid invoice Id");
-	invoices.splice(index, 1);
+	const array = [...invoices];
+	const index = array.findIndex((invoice) => invoice.id === id);
 
-	return invoices;
+	if (index === -1) throw new Error("Invalid invoice Id");
+	array.splice(index, 1);
+
+	return array;
 };
 
 export const getInvoice = (id: string, invoices: Invoice[]) => {
 	const index = invoices.findIndex((invoice) => invoice.id === id);
-	if (index === -1) throw new Error("Invalid invoice Id");
 
 	return invoices[index];
 };

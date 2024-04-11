@@ -18,6 +18,7 @@ import {
 	Input,
 	InputLabel,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const invoiceItemZodSchema = z
 	.object({
@@ -93,6 +94,7 @@ const InvoiceForm = ({
 	invoice?: Invoice;
 	onSubmit: (data: Invoice) => void;
 }) => {
+	const router = useRouter();
 	const {
 		control,
 		handleSubmit,
@@ -128,7 +130,12 @@ const InvoiceForm = ({
 	};
 
 	return (
-		<form onSubmit={handleSubmit(submit)} onReset={() => reset()}>
+		<form
+			onSubmit={handleSubmit(submit)}
+			onReset={() => {
+				reset();
+				router.replace("/invoices");
+			}}>
 			<FormGroup>
 				<Controller
 					control={control}
@@ -469,9 +476,21 @@ const InvoiceForm = ({
 					rules={{ required: true }}
 				/>
 
-				<Button variant='contained' type='button'>
-					Save
-				</Button>
+				<div
+					style={{
+						display: "flex",
+						flexDirection: "row",
+						justifyContent: "flex-end",
+						alignItems: "center",
+						gap: "24px",
+					}}>
+					<Button variant='outlined' type='reset'>
+						Cancel
+					</Button>
+					<Button variant='contained' type='submit'>
+						Save
+					</Button>
+				</div>
 			</FormGroup>
 		</form>
 	);
