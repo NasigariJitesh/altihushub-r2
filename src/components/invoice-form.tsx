@@ -470,7 +470,7 @@ const InvoiceForm = ({
 				/>
 
 				<Button variant='contained' type='button'>
-					Submit
+					Save
 				</Button>
 			</FormGroup>
 		</form>
